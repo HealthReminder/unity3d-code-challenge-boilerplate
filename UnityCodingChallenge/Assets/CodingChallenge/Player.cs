@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 public abstract class APlayerProperties : MonoBehaviour
 {
@@ -42,7 +43,16 @@ public abstract class APlayerController: APlayerData
         }
     }
 }
-public class Player : APlayerController
+public abstract class APlayerAnimations : APlayerController
+{
+    public Animator Animator;
+    public void SetAnimationIdle(bool isActive)
+    {
+        Animator.SetBool("IsIdle", isActive);
+    }
+
+}
+public class Player : APlayerAnimations
 {
     public Camera PlayerCamera;
     public Vector3 currentTarget;
@@ -57,6 +67,10 @@ public class Player : APlayerController
         if (!IsInteracting)
             if(!IsOnTarget)
                 IsOnTarget = MoveTowardsPoint(currentTarget, minDistanceToTarget);
+        
+        if(IsOnTarget)
+            SetAnimationIdle(true);
+
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -69,6 +83,7 @@ public class Player : APlayerController
                 {
                     interactionResult = false;
                     Debug.Log($"Player interacted with building with a {interactionResult} result.");
+                    SetAnimationIdle(true);
                 }
                 if (!interactionResult)
                 {
@@ -76,6 +91,7 @@ public class Player : APlayerController
                     //That means that it has a new target to go to
                     currentTarget = mousePos;
                     IsOnTarget = false;
+                    SetAnimationIdle(false);
 
                 }
             }
