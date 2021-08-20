@@ -4,8 +4,12 @@ using UnityEditor.Animations;
 using UnityEngine;
 public abstract class APlayerProperties : MonoBehaviour
 {
+    //Movement
     internal float walkSpeed = 0.1f;
     internal float minDistanceToTarget = 0.25f;
+    //Rotation
+    internal float rotationSpeed = 0.01f;
+
 }
 public abstract class APlayerData : APlayerProperties
 {
@@ -14,6 +18,15 @@ public abstract class APlayerData : APlayerProperties
 }
 public abstract class APlayerController: APlayerData
 {
+    public bool RotateTowardsPoint (Vector3 point, float minAngle)
+    {
+
+        Vector3 v = point - transform.position;
+        v = v.normalized * rotationSpeed;
+        Quaternion q = Quaternion.FromToRotation(transform.forward, v);
+        transform.rotation = q * transform.rotation;
+        return false;
+    }
     public bool MoveTowardsPoint(Vector3 point, float minDistance)
     {
         if (Vector3.Distance(transform.position, point) <= minDistance)
@@ -65,8 +78,13 @@ public class Player : APlayerAnimations
     private void Update()
     {
         if (!IsInteracting)
-            if(!IsOnTarget)
+        {
+            if (!IsOnTarget)
+            {
                 IsOnTarget = MoveTowardsPoint(currentTarget, minDistanceToTarget);
+                RotateTowardsPoint(currentTarget, 0.1f);
+            }
+        }
         
         if(IsOnTarget)
             SetAnimationIdle(true);
