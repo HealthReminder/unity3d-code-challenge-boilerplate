@@ -32,14 +32,14 @@ public abstract class ALlamaProperties : MonoBehaviour
 public abstract class ALlamaData : ALlamaProperties
 {
     [Header("Data")]
-    public int Id; //This is the ID sent to the pool when deactivation is in order
+    public int PoolId; //This is the ID sent to the pool when deactivation is in order
     public int Health;
     public int Age;
     public InventoryItem Diet;
     public bool GotCaptured = false;
     public int DropQuantity;
 }
-[System.Serializable]public class UnityEventInt : UnityEvent<int>
+[System.Serializable]public class IntEvent : UnityEvent<int>
 {
 }
 public abstract class ALlamaEvents : ALlamaData
@@ -47,7 +47,7 @@ public abstract class ALlamaEvents : ALlamaData
     //This class is responsible for the events
     //Because of the inverse dependency principle
     //The class does not do anything itself, but is set by the pool manager
-    [SerializeField]public UnityEventInt OnCaptured;
+    [HideInInspector] public IntEvent OnCaptured;                      //Events are set by the LlamaManager beforehand
 }
 public abstract class ALlamaController : ALlamaEvents
 {
@@ -91,7 +91,7 @@ public abstract class ALlamaController : ALlamaEvents
 
     [ContextMenu("Capture Llama")] public void GetCaptured()
     {
-        OnCaptured.Invoke(Id);
+        OnCaptured.Invoke(PoolId);
 
     }
 
