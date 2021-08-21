@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3978659491171828861}
   m_Layer: 0
   m_Name: LlamaTemplate
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,9 +25,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3978659491171828832}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -805.93805, y: -593.7346, z: 9.616174}
-  m_LocalScale: {x: 0.98, y: 0.98, z: 0.98}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3978659491440929770}
   m_Father: {fileID: 0}
@@ -96,13 +96,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  PoolId: 0
   Health: 87
   Age: 17
   Diet: 0
   GotCaptured: 0
-  DropPrefab: {fileID: 2498361915317148501, guid: c296de0c98979e94584ecfd69d6e736c,
-    type: 3}
   DropQuantity: 0
+  OnCaptured:
+    m_PersistentCalls:
+      m_Calls: []
   Renderer: {fileID: 4863220735328465931}
   IsOnDestination: 1
   IsFacingDestination: 0
@@ -114,7 +116,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3978659491171828832}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1.2710891, z: 1}

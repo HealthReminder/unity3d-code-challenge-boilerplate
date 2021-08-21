@@ -89,7 +89,7 @@ public class LlamaManager : PoolingController
     {
         for (int i = 0; i < qtd; i++)
         {
-            Vector3 _randomPosition = transform.position + new Vector3(Random.Range(0.1f, 0.2f), 0, Random.Range(0.1f, 0.2f));
+            Vector3 _randomPosition = transform.position + new Vector3(Random.Range(-2.0f, 2.0f), 0, Random.Range(-2.0f, 2.0f));
             Vector3 _randomRotation = new Vector3(0, Random.Range(0.0f, 180.0f), 0);
             Transform t = Instantiate(currencyPrefab, pos + _randomPosition, Quaternion.Euler(_randomRotation), null).transform;
             t.position = new Vector3(t.position.x, 1.05f, t.position.z);

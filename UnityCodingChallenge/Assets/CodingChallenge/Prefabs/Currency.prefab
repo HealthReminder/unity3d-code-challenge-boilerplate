@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3298528523355795183}
+  - component: {fileID: 1306251538}
+  - component: {fileID: 1306251539}
   m_Layer: 0
   m_Name: Currency
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2498361915317148501}
-  m_LocalRotation: {x: -0, y: -0.40064707, z: -0, w: 0.91623247}
+  m_LocalRotation: {x: 0, y: -0.40064493, z: 0, w: 0.9162335}
   m_LocalPosition: {x: 0.75, y: 1.357, z: 0.811}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -31,6 +33,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -47.237, z: 0}
+--- !u!135 &1306251538
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498361915317148501}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1306251539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498361915317148501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 756b55c0b6318e94ab136a282e1c896c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemName: Money
+  MoneyGain: 1
+  HealthGain: 0
 --- !u!1 &5331173539562997007
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,6 +103,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Money_Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775388297294331639, guid: 78a62d5ec617d564f8925757d757eabe,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9013754594013166833, guid: 78a62d5ec617d564f8925757d757eabe,
         type: 3}

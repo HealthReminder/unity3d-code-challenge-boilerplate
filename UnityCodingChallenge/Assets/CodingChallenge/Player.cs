@@ -111,9 +111,13 @@ public class Player : APlayerView
                 Debug.Log("Player captured a Llama.");
                 Llama capturedLlama = other.GetComponent<Llama>();
                 capturedLlama.GetCaptured();
-            } else if (other.GetComponent<PickableObject>())
+            } else if (other.GetComponent<PickableItem>())
             {
-                Debug.Log("Player collected an object.");
+                PickableItem collectedItem = other.GetComponent<PickableItem>();
+                collectedItem.Collect(out int moneyGain, out int healthGain);
+                Coins += moneyGain;
+                Health += healthGain;
+                Debug.Log($"Player collected an object and gained ${moneyGain}, and {healthGain} HP.");
             }
 
         }
