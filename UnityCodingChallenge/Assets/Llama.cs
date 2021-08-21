@@ -19,7 +19,7 @@ public abstract class ALlamaProperties : MonoBehaviour
     //Color
     internal float maxColorOffset = 0.3f; //How much color varies between Llamas
     //Movement
-    internal float walkSpeed = 0.05f;
+    internal float walkSpeed = 0.02f;
     internal float minDistanceToTarget = 0.1f;
     //Rotation
     internal float rotationSpeed = 0.05f;
