@@ -7,7 +7,7 @@ public abstract class APlayerProperties : MonoBehaviour
     //This class handles the properties used mostly for debug
     //The variables here should not be changed constantly
     //Movement
-    internal float walkSpeed = 0.02f;
+    internal float walkSpeed = 0.05f;
     internal float minDistanceToDestination = 0.25f;
     //Rotation
     internal float rotationSpeed = 0.01f;
