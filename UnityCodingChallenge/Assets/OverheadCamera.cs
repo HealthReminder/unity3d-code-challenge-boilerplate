@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public abstract class ACameraProperties : MonoBehaviour
 {
-    internal float minDistance = 1.5f;
-    internal float maxDistance = 20.0f;
+    internal float minDistance = 3f;
+    internal float maxDistance = 30.0f;
     internal float movementSpeed = 5f;
 
 }

@@ -4,11 +4,14 @@ using UnityEditor.Animations;
 using UnityEngine;
 public abstract class APlayerProperties : MonoBehaviour
 {
+    //This class handles the properties used mostly for debug
+    //The variables here should not be changed constantly
     //Movement
     internal float walkSpeed = 0.1f;
-    internal float minDistanceToTarget = 0.25f;
+    internal float minDistanceToDestination = 0.25f;
     //Rotation
     internal float rotationSpeed = 0.01f;
+    internal float minAngleToTarget = 5;
 
 }
 public abstract class APlayerData : APlayerProperties
@@ -18,14 +21,16 @@ public abstract class APlayerData : APlayerProperties
 }
 public abstract class APlayerController: APlayerData
 {
-    public bool RotateTowardsPoint (Vector3 point, float minAngle)
+    public bool RotateTowardsPoint(Vector3 point)
     {
-
-        Vector3 v = point - transform.position;
-        v = v.normalized * rotationSpeed;
-        Quaternion q = Quaternion.FromToRotation(transform.forward, v);
-        transform.rotation = q * transform.rotation;
-        return false;
+        if (Vector3.Angle(transform.forward, point) <= minAngleToTarget)
+            return true;
+        else
+        {
+            Vector3 targetPostition = new Vector3(point.x, transform.position.y, point.z);
+            this.transform.LookAt(targetPostition);
+            return false;
+        }
     }
     public bool MoveTowardsPoint(Vector3 point, float minDistance)
     {
@@ -56,7 +61,7 @@ public abstract class APlayerController: APlayerData
         }
     }
 }
-public abstract class APlayerAnimations : APlayerController
+public abstract class APlayerView : APlayerController
 {
     public Animator Animator;
     public void SetAnimationIdle(bool isActive)
@@ -65,28 +70,34 @@ public abstract class APlayerAnimations : APlayerController
     }
 
 }
-public class Player : APlayerAnimations
+public class Player : APlayerView
 {
     public Camera PlayerCamera;
-    public Vector3 currentTarget;
+    public Vector3 currentDestination;
     public bool IsInteracting = false;
-    public bool IsOnTarget = false;
+    public bool IsOnDestination = false;
+    public bool IsFacingDestination = false;
     private void Awake()
     {
-        currentTarget = transform.position;
+        currentDestination = transform.position;
     }
     private void Update()
     {
         if (!IsInteracting)
         {
-            if (!IsOnTarget)
+            if (!IsOnDestination)
             {
-                IsOnTarget = MoveTowardsPoint(currentTarget, minDistanceToTarget);
-                RotateTowardsPoint(currentTarget, 0.1f);
+                IsOnDestination = MoveTowardsPoint(currentDestination, minDistanceToDestination);
+                RotateTowardsPoint(currentDestination);
             }
         }
-        
-        if(IsOnTarget)
+
+        if (!IsFacingDestination)
+        {
+            IsFacingDestination = RotateTowardsPoint(currentDestination);
+        }
+
+        if (IsOnDestination)
             SetAnimationIdle(true);
 
 
@@ -107,8 +118,9 @@ public class Player : APlayerAnimations
                 {
                     //Player could not interact with object
                     //That means that it has a new target to go to
-                    currentTarget = mousePos;
-                    IsOnTarget = false;
+                    currentDestination = mousePos;
+                    IsOnDestination = false;
+                    IsFacingDestination = false;
                     SetAnimationIdle(false);
 
                 }
