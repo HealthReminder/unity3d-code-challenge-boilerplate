@@ -30,7 +30,7 @@ public abstract class ALlamaData : ALlamaProperties
     [Header("Data")]
     public int Health;
     public int Age;
-    public Item Diet;
+    public InventoryItem Diet;
     public bool GotCaptured = false;
 }
 public abstract class ALlamaController : ALlamaData
@@ -132,7 +132,7 @@ public class Llama : ALlamaView
         propertyBlock = new MaterialPropertyBlock();
         Health = Random.Range((int)healthMinMax.x, (int)healthMinMax.y + 1);
         Age = Random.Range((int)ageMinMax.x, (int)ageMinMax.y + 1);
-        Diet = (Item)Random.Range(0, 4);
+        Diet = (InventoryItem)Random.Range(0, 4);
         ChangeColorRandom();
         ChangeScale();
         GotCaptured = false;
