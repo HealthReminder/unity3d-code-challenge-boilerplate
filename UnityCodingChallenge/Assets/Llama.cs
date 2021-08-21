@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public abstract class ALlamaProperties : MonoBehaviour
 {
     [Header("Properties")]
-    //This class handles the properties used mostly for debug
+    //This class handles the properties necessary for the functionality of the script
+    //Its different than variables like health and age, that changes dinamically
     //The variables here should not be changed constantly
+    //Components 
 
     //Data Generation
     internal Vector2 ageMinMax = new Vector2(0, 30);
@@ -29,14 +32,24 @@ public abstract class ALlamaProperties : MonoBehaviour
 public abstract class ALlamaData : ALlamaProperties
 {
     [Header("Data")]
+    public int Id; //This is the ID sent to the pool when deactivation is in order
     public int Health;
     public int Age;
     public InventoryItem Diet;
     public bool GotCaptured = false;
-    public GameObject DropPrefab;
     public int DropQuantity;
 }
-public abstract class ALlamaController : ALlamaData
+[System.Serializable]public class UnityEventInt : UnityEvent<int>
+{
+}
+public abstract class ALlamaEvents : ALlamaData
+{
+    //This class is responsible for the events
+    //Because of the inverse dependency principle
+    //The class does not do anything itself, but is set by the pool manager
+    [SerializeField]public UnityEventInt OnCaptured;
+}
+public abstract class ALlamaController : ALlamaEvents
 {
     //This class contains all the code for the functionality of the Llamas
     //That includes stuff like movement 
@@ -78,14 +91,9 @@ public abstract class ALlamaController : ALlamaData
 
     [ContextMenu("Capture Llama")] public void GetCaptured()
     {
-        for (int i = 0; i < DropQuantity; i++)
-        {
-            Vector3 _randomPosition = transform.position + new Vector3(Random.Range(0.1f, 0.5f), 0, Random.Range(0.1f, 0.5f));
-            Vector3 _randomRotation = new Vector3(0, Random.Range(0.0f, 180.0f), 0);
-            Instantiate(DropPrefab, transform.position + _randomPosition, Quaternion.Euler(_randomRotation), null);
-        }
-    }
+        OnCaptured.Invoke(Id);
 
+    }
 
 }
 public abstract class ALlamaView : ALlamaController
@@ -127,7 +135,6 @@ public class Llama : ALlamaView
     public bool IsFacingDestination = false;
     Vector3 currentDestination;
 
-    // Start is called before the first frame update
     void OnEnable()
     {
         Reset();
@@ -135,6 +142,8 @@ public class Llama : ALlamaView
 
     [ContextMenu("Reset")] public void Reset()
     {
+        //Randomize variables and reset states
+        //This is called during pooling and upon scene load
         propertyBlock = new MaterialPropertyBlock();
         Health = Random.Range((int)healthMinMax.x, (int)healthMinMax.y + 1);
         Age = Random.Range((int)ageMinMax.x, (int)ageMinMax.y + 1);
@@ -145,7 +154,7 @@ public class Llama : ALlamaView
         GotCaptured = false;
         IsOnDestination = true;
     }
-    // Update is called once per frame
+    
     void Update()
     {
         if (IsOnDestination)

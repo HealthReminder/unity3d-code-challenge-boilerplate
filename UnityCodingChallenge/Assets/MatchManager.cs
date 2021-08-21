@@ -8,7 +8,7 @@ public abstract class MatchProperties: MonoBehaviour
 }
 public class MatchManager : MatchProperties
 {
-    public LlamaPool LlamaPool;
+    public LlamaManager LlamaPool;
     public bool isMatch = false;
     private void Start()
     {
@@ -17,7 +17,7 @@ public class MatchManager : MatchProperties
     }
     IEnumerator WorkMatch()
     {
-        Debug.Log("A new match was triggered. Setting up.");
+        Debug.Log("A new match is being set up.");
         for (int i = 0; i < initialLlamaQuantity; i++)
         {
             LlamaPool.SpawnLlamaRandom();
