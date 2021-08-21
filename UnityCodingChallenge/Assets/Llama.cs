@@ -12,6 +12,7 @@ public abstract class ALlamaProperties : MonoBehaviour
     //Data Generation
     internal Vector2 ageMinMax = new Vector2(0, 30);
     internal Vector2 healthMinMax = new Vector2(50, 100);
+    internal Vector2 boundariesMinMax = new Vector2(-18, 18);
     //Color
     internal float maxColorOffset = 0.3f; //How much color varies between Llamas
     //Movement
@@ -32,6 +33,8 @@ public abstract class ALlamaData : ALlamaProperties
     public int Age;
     public InventoryItem Diet;
     public bool GotCaptured = false;
+    public GameObject DropPrefab;
+    public int DropQuantity;
 }
 public abstract class ALlamaController : ALlamaData
 {
@@ -73,6 +76,17 @@ public abstract class ALlamaController : ALlamaData
         }
     }
 
+    [ContextMenu("Capture Llama")] public void GetCaptured()
+    {
+        for (int i = 0; i < DropQuantity; i++)
+        {
+            Vector3 _randomPosition = transform.position + new Vector3(Random.Range(0.1f, 0.5f), 0, Random.Range(0.1f, 0.5f));
+            Vector3 _randomRotation = new Vector3(0, Random.Range(0.0f, 180.0f), 0);
+            Instantiate(DropPrefab, transform.position + _randomPosition, Quaternion.Euler(_randomRotation), null);
+        }
+    }
+
+
 }
 public abstract class ALlamaView : ALlamaController
 {
@@ -102,15 +116,7 @@ public abstract class ALlamaView : ALlamaController
         float scaleChange = Mathf.Lerp(minMaxScale.x, minMaxScale.y, interpolatedAge);
         transform.localScale = Vector3.one * scaleChange;
     }
-    public void Wander()
-    {
-
-    }
-    [ContextMenu("Capture Llama")] public void GetCaptured()
-    {
-        Debug.LogWarning("This function might be unnecessary");
-    }
-
+  
 }
 //[ExecuteInEditMode] //Remove dashes to see how Llamas would be spawned without playing the scene // Warning: Llamas might flotate
 public class Llama : ALlamaView
@@ -133,6 +139,7 @@ public class Llama : ALlamaView
         Health = Random.Range((int)healthMinMax.x, (int)healthMinMax.y + 1);
         Age = Random.Range((int)ageMinMax.x, (int)ageMinMax.y + 1);
         Diet = (InventoryItem)Random.Range(0, 4);
+        DropQuantity = Random.Range(3,6);
         ChangeColorRandom();
         ChangeScale();
         GotCaptured = false;
@@ -145,7 +152,7 @@ public class Llama : ALlamaView
         {
             IsOnDestination = false;
             IsFacingDestination = false;
-            currentDestination = new Vector3(Random.Range(-10, 10), 1.0f, Random.Range(-10, 10));
+            currentDestination = new Vector3(Random.Range(boundariesMinMax.x, boundariesMinMax.y), 1.0f, Random.Range(boundariesMinMax.x, boundariesMinMax.y)); //Llama movement is restricted between these coords
         }
 
         IsOnDestination = JumpTowardsPoint(currentDestination);
