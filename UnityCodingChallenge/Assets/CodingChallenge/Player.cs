@@ -81,52 +81,68 @@ public class Player : APlayerView
     {
         currentDestination = transform.position;
     }
+
     private void Update()
     {
+        //Rotate if not facing it yet
+        if (!IsFacingDestination)
+            IsFacingDestination = RotateTowardsPoint(currentDestination);
+
+        //Move if not there yet and not busy or idle
         if (!IsInteracting)
         {
             if (!IsOnDestination)
-            {
                 IsOnDestination = MoveTowardsPoint(currentDestination, minDistanceToDestination);
-                RotateTowardsPoint(currentDestination);
-            }
+            else 
+                SetAnimationIdle(true);
         }
-
-        if (!IsFacingDestination)
-        {
-            IsFacingDestination = RotateTowardsPoint(currentDestination);
-        }
-
-        if (IsOnDestination)
-            SetAnimationIdle(true);
-
 
         if (Input.GetMouseButtonDown(0))
         {
-            //Player is trying to interact with the world
-            GetInformationFromRay(PlayerCamera, out bool isValid, out Vector3 mousePos, out GameObject interactingWith);
-            if (isValid)
+            OnPlayerClick();
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Interactable")
+        {
+            if (other.GetComponent<Llama>())
             {
-                bool interactionResult = false;
-                if (interactingWith != null)
-                {
-                    interactionResult = false;
-                    Debug.Log($"Player interacted with building with a {interactionResult} result.");
-                    SetAnimationIdle(true);
-                }
-                if (!interactionResult)
-                {
-                    //Player could not interact with object
-                    //That means that it has a new target to go to
-                    currentDestination = mousePos;
-                    IsOnDestination = false;
-                    IsFacingDestination = false;
-                    SetAnimationIdle(false);
-
-                }
+                Debug.Log("Player captured a Llama.");
+                Llama capturedLlama = other.GetComponent<Llama>();
+                capturedLlama.GetCaptured();
+            } else if (other.GetComponent<PickableObject>())
+            {
+                Debug.Log("Player collected an object.");
             }
 
         }
     }
- 
+    void OnPlayerClick()
+    {
+        //Player is trying to interact with the world
+        GetInformationFromRay(PlayerCamera, out bool isValid, out Vector3 mousePos, out GameObject interactingWith);
+        if (isValid)
+        {
+            bool interactionResult = false;
+            if (interactingWith != null)
+            {
+                interactionResult = false;
+                Debug.Log($"Player interacted with building with a {interactionResult} result.");
+                SetAnimationIdle(true);
+            }
+            if (!interactionResult)
+            {
+                //Player could not interact with object
+                //That means that it has a new target to go to
+                currentDestination = mousePos;
+                IsOnDestination = false;
+                IsFacingDestination = false;
+                SetAnimationIdle(false);
+
+            }
+        }
+
+    }
+
 }

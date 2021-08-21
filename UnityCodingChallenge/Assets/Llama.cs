@@ -47,7 +47,7 @@ public abstract class ALlamaEvents : ALlamaData
     //This class is responsible for the events
     //Because of the inverse dependency principle
     //The class does not do anything itself, but is set by the pool manager
-    [HideInInspector] public IntEvent OnCaptured;                      //Events are set by the LlamaManager beforehand
+    [HideInInspector] public IntEvent OnCaptured;                             //Events are set by the LlamaManager beforehand
 }
 public abstract class ALlamaController : ALlamaEvents
 {
@@ -92,6 +92,7 @@ public abstract class ALlamaController : ALlamaEvents
     [ContextMenu("Capture Llama")] public void GetCaptured()
     {
         OnCaptured.Invoke(PoolId);
+        OnCaptured = new IntEvent();
 
     }
 
