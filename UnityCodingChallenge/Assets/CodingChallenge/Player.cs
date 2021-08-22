@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public abstract class APlayerProperties : MonoBehaviour
 {
     //This class handles the properties used mostly for debug
@@ -18,6 +20,8 @@ public abstract class APlayerData : APlayerProperties
 {
     public int Health;
     public int Coins;
+    public Inventory Inventory;
+
 }
 public abstract class APlayerController: APlayerData
 {
@@ -80,6 +84,7 @@ public class Player : APlayerView
     private void Awake()
     {
         currentDestination = transform.position;
+        Inventory = new Inventory();
     }
 
     private void Update()
@@ -101,6 +106,12 @@ public class Player : APlayerView
         {
             OnPlayerClick();
         }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            PersistentData.UpdatePlayer(Coins,Health,Inventory);
+            SceneManager.LoadScene(1);//Loads shop to test persistent data
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -108,15 +119,18 @@ public class Player : APlayerView
         {
             if (other.GetComponent<Llama>())
             {
-                Debug.Log("Player captured a Llama.");
                 Llama capturedLlama = other.GetComponent<Llama>();
                 capturedLlama.GetCaptured();
-            } else if (other.GetComponent<PickableItem>())
+                Debug.Log("Player captured a Llama.");
+            }
+            else if (other.GetComponent<PickableItem>())
             {
                 PickableItem collectedItem = other.GetComponent<PickableItem>();
                 collectedItem.Collect(out int moneyGain, out int healthGain);
                 Coins += moneyGain;
                 Health += healthGain;
+                if (!collectedItem.isConsumable)
+                    Inventory.AddItem((int)collectedItem.item);
                 Debug.Log($"Player collected an object and gained ${moneyGain}, and {healthGain} HP.");
             }
 

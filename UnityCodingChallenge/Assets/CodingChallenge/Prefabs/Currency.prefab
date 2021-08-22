@@ -58,7 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 756b55c0b6318e94ab136a282e1c896c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemName: Money
+  item: 0
+  isConsumable: 1
   MoneyGain: 1
   HealthGain: 0
 --- !u!1 &5331173539562997007

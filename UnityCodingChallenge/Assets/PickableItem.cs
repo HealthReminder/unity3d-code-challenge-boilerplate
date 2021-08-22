@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class PickableItem : MonoBehaviour
 {
-    public string ItemName;
+    [SerializeField]public Item item;
     //Pickable Items can have as many variables as the designers want
     //To enable a new variable the code to handle it needs to be added 
     //to the OnTriggerPortion of the Player script
+    public bool isConsumable;
     public int MoneyGain;
     public int HealthGain;
 
@@ -19,6 +20,9 @@ public class PickableItem : MonoBehaviour
         //To support not only money gain but also health, respect, points
         moneyGain = MoneyGain;
         healthGain = HealthGain;
-        Destroy(gameObject);
+        if (isConsumable)
+            Destroy(gameObject);
+        else
+            gameObject.SetActive(false);
     }
 }
