@@ -56,10 +56,10 @@ public abstract class InventoryController : InventoryData
 }
 public class Inventory : InventoryController
 {
-    public Inventory(Dictionary<ItemType, int> countList, Dictionary<ItemType, string> pathList)
+    public Inventory(Dictionary<ItemType, int> countDic, Dictionary<ItemType, string> pathDic)
     {
-        itemToCount = countList;
-        itemToPath = pathList;
+        itemToCount = countDic;
+        itemToPath = pathDic;
     }
 
 

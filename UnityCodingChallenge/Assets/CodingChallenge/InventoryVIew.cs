@@ -8,7 +8,7 @@ public class InventoryView : MonoBehaviour
 {
     [SerializeField] public GameObject templateEntry;
     public Transform ItemsContainer;
-    List<InventoryEntry> entries;
+    [HideInInspector] public List<InventoryEntry> entries;
     private void Awake()
     {
         entries = new List<InventoryEntry>();
@@ -22,7 +22,7 @@ public class InventoryView : MonoBehaviour
         string[] paths = itemToPath.Values.ToArray();
         for (int i = 0; i < paths.Length; i++)
         {
-            Debug.Log(paths[i]);
+            //Debug.Log(paths[i]);
 
             GameObject prefab = Instantiate(Resources.Load(paths[i]) as GameObject);
             prefab.SetActive(false);
@@ -33,7 +33,7 @@ public class InventoryView : MonoBehaviour
             string itemName = item.itemType.ToString();
             string quantityText = itemToCount[item.itemType].ToString();
             string priceText = item.Price.ToString();
-            entry.Set(itemName, quantityText, priceText);
+            entry.SetInfo(itemName, quantityText, priceText);
             entry.gameObject.SetActive(true);
         }
 
