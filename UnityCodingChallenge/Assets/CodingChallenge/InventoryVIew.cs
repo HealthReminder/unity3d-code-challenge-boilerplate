@@ -33,7 +33,7 @@ public class InventoryView : MonoBehaviour
             string itemName = item.itemType.ToString();
             string quantityText = itemToCount[item.itemType].ToString();
             string priceText = item.Price.ToString();
-            entry.SetInfo(itemName, quantityText, priceText);
+            entry.SetInfo(item.itemType,itemName, quantityText, priceText);
             entry.gameObject.SetActive(true);
         }
 

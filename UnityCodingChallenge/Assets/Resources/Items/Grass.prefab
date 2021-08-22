@@ -59,8 +59,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 0
-  Price: 5
-  MoneyGain: 1
+  isConsumable: 0
+  Price: 15
+  MoneyGain: 0
   HealthGain: 0
 --- !u!1 &5331173539562997007
 GameObject:

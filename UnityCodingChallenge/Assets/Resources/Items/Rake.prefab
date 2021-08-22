@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1306251538}
   - component: {fileID: 1306251539}
   m_Layer: 0
-  m_Name: Flowers
+  m_Name: Rake
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,9 +58,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 756b55c0b6318e94ab136a282e1c896c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 1
+  itemType: 3
   isConsumable: 0
-  Price: 35
+  Price: 80
   MoneyGain: 0
   HealthGain: 0
 --- !u!1 &5331173539562997007

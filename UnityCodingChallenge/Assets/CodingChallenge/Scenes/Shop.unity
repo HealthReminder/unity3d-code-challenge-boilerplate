@@ -340,7 +340,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 71938702}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 216018988}
+        m_TargetAssemblyTypeName: InventoryEntry, Assembly-CSharp
+        m_MethodName: OnButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &71938702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,10 +732,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd755aca4c261884d95a470cf5fe7d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textName: {fileID: 2116039186}
-  textDescription: {fileID: 1767880981}
+  Item: 0
+  TextName: {fileID: 2116039186}
+  TextDescription: {fileID: 1767880981}
   Button: {fileID: 71938701}
-  textButton: {fileID: 274047187}
+  TextButton: {fileID: 274047187}
+  OnAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1393050958}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: BuyItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &274047185
 GameObject:
   m_ObjectHideFlags: 0
@@ -2115,6 +2143,8 @@ MonoBehaviour:
   - item: 1
     quantity: 999
   - item: 2
+    quantity: 999
+  - item: 3
     quantity: 999
 --- !u!1 &1401559409
 GameObject:

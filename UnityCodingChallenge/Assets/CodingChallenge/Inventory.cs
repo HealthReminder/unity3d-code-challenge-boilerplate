@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public enum ItemType : int
 {
-    Grass, Flowers, Shrubs, Money
+    Grass, Flowers, Shrubs, Rake, Money
 }
 public abstract class InventoryData 
 {
