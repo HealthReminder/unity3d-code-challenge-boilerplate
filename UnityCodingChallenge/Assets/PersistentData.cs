@@ -37,6 +37,13 @@ public static class PersistentData
         ItemToPath = PlayerInfo.itemToPath;
 
     }
+    public static void UpdateItemBought(int coins, Inventory inventory)
+    {
+        PlayerInfo.money = coins;
+        PlayerInfo.itemToCount = inventory.itemToCount;
+        PlayerInfo.itemToPath = inventory.itemToPath;
+
+    }
     public static void UpdatePersistentPlayer(int coins, int health, Inventory inventory)
     {
         PlayerInfo.money = coins;
@@ -45,10 +52,9 @@ public static class PersistentData
         PlayerInfo.itemToPath = inventory.itemToPath;
 
     }
-    public static void GetPlayerInventory(out Dictionary<ItemType, int> ItemToCount, out Dictionary<ItemType, string> ItemToPath)
+    public static Inventory GetPlayerInventory()
     {
-        ItemToCount = PlayerInfo.itemToCount;
-        ItemToPath = PlayerInfo.itemToPath;
+        return new Inventory(PlayerInfo.itemToCount, PlayerInfo.itemToPath);
     }
     public static int GetPlayerCoins()
     {

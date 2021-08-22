@@ -12,8 +12,8 @@ public class Warehouse : InventoryView
     [ContextMenu("Display Player Inventory")] public void DisplayPlayerInventory()
     {
         PersistentData.Debug();
-        PersistentData.GetPlayerInventory(out Dictionary<ItemType, int> itemToCount, out Dictionary<ItemType, string> itemToPath);
-        DisplayInventory(itemToCount, itemToPath);
+        Inventory playerInventory = PersistentData.GetPlayerInventory();
+        DisplayInventory(playerInventory.itemToCount, playerInventory.itemToPath);
     }
     public void LoadMainScene()
     {

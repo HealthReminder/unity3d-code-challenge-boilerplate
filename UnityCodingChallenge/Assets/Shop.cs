@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,10 +16,12 @@ public class Shop : InventoryView
     public TextMeshProUGUI coinsText;
     public int playerCoins = 0;
     public ShopOption[] options;
-    public Inventory inventory;
+    public Inventory shopInventory;
+    public Inventory playerInventory;
     private void OnEnable()
     {
         playerCoins = PersistentData.GetPlayerCoins();
+        playerInventory = PersistentData.GetPlayerInventory();
         coinsText.text = "$"+playerCoins.ToString();
         DisplayShopInventory();
     }
@@ -33,7 +36,8 @@ public class Shop : InventoryView
             itemToCount.Add(item, options[i].quantity);
             itemToPath.Add(item, ($"Items/{item}"));
         }
-        inventory = new Inventory(itemToCount, itemToPath);
+        shopInventory = new Inventory(itemToCount, itemToPath);
+
         DisplayInventory(itemToCount, itemToPath);
 
     }
@@ -51,6 +55,22 @@ public class Shop : InventoryView
     public void BuyItem(ItemType Item)
     {
         Debug.Log($"Player is trying to buy item {Item}");
+        PickableItem product = Instantiate(Resources.Load(shopInventory.itemToPath[Item]) as GameObject).GetComponent<PickableItem>();
+        bool canBuy = true;
+        if (playerCoins - product.Price < 0)
+            canBuy = false;
+        if (canBuy)
+        {
+            playerCoins -= product.Price;
+            playerInventory.AddItem(product, ($"Items/{product.itemType}"));
+            PersistentData.UpdateItemBought(playerCoins, playerInventory);
+            coinsText.text = "$" + playerCoins.ToString();
+
+        }
+        Destroy(product.gameObject);
+
+
+
     }
     public void LoadMainScene()
     {
