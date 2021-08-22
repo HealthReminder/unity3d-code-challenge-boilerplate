@@ -29,7 +29,15 @@ internal static class PlayerInfo
 
 public static class PersistentData
 {
-    public static void UpdatePlayer(int coins, int health, Inventory inventory)
+    public static void UpdateLocalPlayer(out int coins, out int health, out Dictionary<ItemType, int> ItemToCount, out Dictionary<ItemType, string> ItemToPath)
+    {
+        coins = PlayerInfo.money;
+        health = PlayerInfo.health;
+        ItemToCount = PlayerInfo.itemToCount;
+        ItemToPath = PlayerInfo.itemToPath;
+
+    }
+    public static void UpdatePersistentPlayer(int coins, int health, Inventory inventory)
     {
         PlayerInfo.money = coins;
         PlayerInfo.health = health;

@@ -77,18 +77,32 @@ public abstract class APlayerView : APlayerController
 public class Player : APlayerView
 {
     public Camera PlayerCamera;
+    public bool hasInput = false;
     public Vector3 currentDestination;
     public bool IsInteracting = false;
     public bool IsOnDestination = false;
     public bool IsFacingDestination = false;
     private void Awake()
     {
-        Inventory = new Inventory(new Dictionary<ItemType, int>(), new Dictionary<ItemType, string>());
-        currentDestination = transform.position;
-    }
 
+        currentDestination = transform.position;
+        UpdateLocalPlayer();
+    }
+    public void UpdateLocalPlayer()
+    {
+        PersistentData.UpdateLocalPlayer(out Coins, out Health, out Dictionary<ItemType, int> countList, out Dictionary<ItemType, string> pathList);
+        if (countList == null)
+            countList = new Dictionary<ItemType, int>();
+        if (pathList == null)
+            pathList = new Dictionary<ItemType, string>();
+        Inventory = new Inventory(countList, pathList);
+
+
+    }
     private void Update()
     {
+        if (!hasInput)
+            return;
         //Rotate if not facing it yet
         if (!IsFacingDestination)
             IsFacingDestination = RotateTowardsPoint(currentDestination);
@@ -109,10 +123,17 @@ public class Player : APlayerView
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Debug.Log("Updating inventory with item count of: "+Inventory.itemToCount.Keys.Count);
-            PersistentData.UpdatePlayer(Coins,Health,Inventory);
+            Debug.Log("Updating inventory with item count of: " + Inventory.itemToCount.Keys.Count);
+            PersistentData.UpdatePersistentPlayer(Coins, Health, Inventory);
             PersistentData.Debug();
             SceneManager.LoadScene(1);//Loads shop to test persistent data
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            Debug.Log("Updating inventory with item count of: " + Inventory.itemToCount.Keys.Count);
+            PersistentData.UpdatePersistentPlayer(Coins, Health, Inventory);
+            PersistentData.Debug();
+            SceneManager.LoadScene(2);//Loads shop to test persistent data
         }
     }
     private void OnTriggerEnter(Collider other)

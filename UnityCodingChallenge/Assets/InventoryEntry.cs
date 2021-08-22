@@ -9,11 +9,12 @@ public class InventoryEntry : MonoBehaviour
 {
     public TextMeshProUGUI textName;
     public TextMeshProUGUI textDescription;
-    public TextMeshProUGUI textPrice;
+    public TextMeshProUGUI textButton;
     public void Set(string name, string description, string price)
     {
         textName.text = name;
         textDescription.text = description;
-        textPrice.text = price;
+        if(textButton)
+            textButton.text = price;
     }
 }

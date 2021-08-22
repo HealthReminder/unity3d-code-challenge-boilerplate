@@ -609,6 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LlamaPool: {fileID: 1869898155}
+  Player: {fileID: 580061339}
   isMatch: 0
 --- !u!4 &305372796
 Transform:
@@ -990,6 +991,7 @@ MonoBehaviour:
   Inventory: {fileID: 0}
   Animator: {fileID: 1526562807}
   PlayerCamera: {fileID: 963194227}
+  hasInput: 0
   currentDestination: {x: 0, y: 0, z: 0}
   IsInteracting: 0
   IsOnDestination: 0

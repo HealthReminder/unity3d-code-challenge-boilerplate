@@ -9,9 +9,11 @@ public abstract class MatchProperties: MonoBehaviour
 public class MatchManager : MatchProperties
 {
     public LlamaManager LlamaPool;
+    public Player Player;
     public bool isMatch = false;
     private void Start()
     {
+        //DontDestroyOnLoad(this.gameObject);
         isMatch = true;
         StartCoroutine(WorkMatch());
     }
@@ -24,11 +26,15 @@ public class MatchManager : MatchProperties
         }
         Debug.Log("Spawned Llamas.");
 
+        Player.hasInput = true;
+        Debug.Log("Enabled Player.");
+
+
         Debug.Log("A new match started.");
 
         while (isMatch)
         {
-
+            //Winning conditions could be here
             yield return null;
         }
         yield break;

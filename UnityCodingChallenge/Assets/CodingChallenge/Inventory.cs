@@ -8,7 +8,7 @@ public enum ItemType : int
 {
     Grass, Flowers, Shrubs, Money
 }
-public abstract class InventoryData : MonoBehaviour
+public abstract class InventoryData 
 {
     public Dictionary<ItemType, int> itemToCount;
     public Dictionary<ItemType, string> itemToPath;
