@@ -43,6 +43,7 @@ public abstract class APlayerController: APlayerData
         else
         {
             transform.position += (point - transform.position).normalized * walkSpeed;
+            transform.position = new Vector3(transform.position.x, 1, transform.position.z);
             return false;
         }        
     }
@@ -61,7 +62,8 @@ public abstract class APlayerController: APlayerData
             isHit = true;
             hitPos = hit.point;
             if (hit.transform.tag == "Interactable")
-                hitInteractable = hit.transform.gameObject;
+                if(Vector3.Distance(transform.position, hit.point) <= 4)
+                    hitInteractable = hit.transform.gameObject;
         }
     }
 }
@@ -170,6 +172,9 @@ public class Player : APlayerView
                 interactionResult = false;
                 Debug.Log($"Player interacted with building with a {interactionResult} result.");
                 SetAnimationIdle(true);
+                PersistentData.UpdatePersistentPlayer(Coins, Health, Inventory);
+                if (interactingWith.GetComponent<Building>())
+                    interactingWith.GetComponent<Building>().Enter();
             }
             if (!interactionResult)
             {
@@ -179,7 +184,6 @@ public class Player : APlayerView
                 IsOnDestination = false;
                 IsFacingDestination = false;
                 SetAnimationIdle(false);
-
             }
         }
 

@@ -881,8 +881,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Warehouse, Assembly-CSharp
+      - m_Target: {fileID: 1393050958}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
         m_MethodName: LoadMainScene
         m_Mode: 1
         m_Arguments:
