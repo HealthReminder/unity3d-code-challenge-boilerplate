@@ -10,6 +10,7 @@ public class PickableItem : MonoBehaviour
     //Pickable Items can have as many variables as the designers want
     //To enable a new variable the code to handle it needs to be added 
     //to the OnTriggerPortion of the Player script
+    public bool isConsumable = false;
     [Header("Pickup gains")]
     public int Price;
     public int MoneyGain;

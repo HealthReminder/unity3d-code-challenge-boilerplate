@@ -2107,6 +2107,8 @@ MonoBehaviour:
   templateEntry: {fileID: 216018986}
   ItemsContainer: {fileID: 496106130}
   entries: []
+  coinsText: {fileID: 67606594}
+  playerCoins: 0
   options:
   - item: 0
     quantity: 999

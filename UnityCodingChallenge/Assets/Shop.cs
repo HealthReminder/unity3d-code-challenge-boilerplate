@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,9 +11,13 @@ using UnityEngine.SceneManagement;
 }
 public class Shop : InventoryView
 {
-     public ShopOption[] options;
+    public TextMeshProUGUI coinsText;
+    public int playerCoins = 0;
+    public ShopOption[] options;
     private void OnEnable()
     {
+        playerCoins = PersistentData.GetPlayerCoins();
+        coinsText.text = "$"+playerCoins.ToString();
         DisplayShopInventory();
     }
     [ContextMenu("Display Shop Inventory")] public void DisplayShopInventory()
@@ -28,7 +33,7 @@ public class Shop : InventoryView
         DisplayInventory(itemToCount, itemToPath);
 
     }
-        //prefabPath = ;
+
     internal void SetMerchandise()
     {
         if(entries != null)

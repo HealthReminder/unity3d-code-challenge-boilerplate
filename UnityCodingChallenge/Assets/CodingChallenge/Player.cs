@@ -154,7 +154,8 @@ public class Player : APlayerView
                 collectedItem.Collect(out int moneyGain, out int healthGain, out string prefabPath);
                 Coins += moneyGain;
                 Health += healthGain;
-                Inventory.AddItem(collectedItem, prefabPath);
+                if(!collectedItem.isConsumable)
+                    Inventory.AddItem(collectedItem, prefabPath);
                 Debug.Log($"Player collected an object and gained ${moneyGain}, and {healthGain} HP.");
             }
 

@@ -58,9 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 756b55c0b6318e94ab136a282e1c896c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabReference: {fileID: 2498361915317148501}
   itemType: 3
-  IsConsumable: 0
+  isConsumable: 1
   Price: 0
   MoneyGain: 1
   HealthGain: 0

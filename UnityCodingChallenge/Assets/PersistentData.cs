@@ -50,6 +50,10 @@ public static class PersistentData
         ItemToCount = PlayerInfo.itemToCount;
         ItemToPath = PlayerInfo.itemToPath;
     }
+    public static int GetPlayerCoins()
+    {
+        return PlayerInfo.money;
+    }
     public static void Debug()
     {
         PlayerInfo.LogInfo();
