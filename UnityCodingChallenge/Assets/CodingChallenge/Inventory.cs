@@ -4,37 +4,49 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public enum Item : int
+public enum ItemType : int
 {
-    Money,Grass, Flowers, Shrubs
+    Grass, Flowers, Shrubs, Money
 }
 public abstract class InventoryData : MonoBehaviour
 {
-    public Dictionary<Item, int> itemToQuantity;
+    public Dictionary<ItemType, int> itemToCount;
+    public Dictionary<ItemType, string> itemToPath;
 
 }
 public abstract class InventoryController : InventoryData
 {
 
-    public void AddItem(int itemID)
+    public void AddItem(PickableItem pickedItem, string path)
     {
-        Item item = (Item)itemID;
-        if (itemToQuantity.ContainsKey(item))
+        ItemType type = pickedItem.itemType;
+        if (itemToCount.ContainsKey(type))
         {
-            itemToQuantity[item]++;
+            //Added a new object
+            itemToCount[type]++;
         }
         else
         {
-            itemToQuantity.Add(item, 1);
+            //Added a new object
+            itemToCount.Add(type, 1);
+            itemToPath.Add(type, path);
         }
+
     }
-    public void RemoveItem(int itemID)
+    public void RemoveItem(PickableItem droppedItem)
     {
-        Item item = (Item)itemID;
-        if (itemToQuantity.ContainsKey(item))
+        ItemType type = droppedItem.itemType;
+
+        if (itemToCount.ContainsKey(type))
         {
-            itemToQuantity[item]--;
+            //Removed item
+            itemToCount[type]--;
+            if (itemToCount[type] <= 0)
+            {
+                //There is not more of this item left
+                itemToCount.Remove(type);
+                itemToPath.Remove(type);
+            }
         }
         else
             Debug.LogWarning("Tried to remove inexisting item from inventory. " +
@@ -44,9 +56,10 @@ public abstract class InventoryController : InventoryData
 }
 public class Inventory : InventoryController
 {
-    public Inventory()
+    public Inventory(Dictionary<ItemType, int> countList, Dictionary<ItemType, string> pathList)
     {
-        itemToQuantity = new Dictionary<Item, int>();
+        itemToCount = countList;
+        itemToPath = pathList;
     }
 
 

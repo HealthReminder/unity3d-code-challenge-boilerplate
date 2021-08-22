@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1306251538}
   - component: {fileID: 1306251539}
   m_Layer: 0
-  m_Name: Currency
+  m_Name: Money
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,8 +58,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 756b55c0b6318e94ab136a282e1c896c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: 0
-  isConsumable: 1
+  prefabReference: {fileID: 2498361915317148501}
+  itemType: 3
+  IsConsumable: 0
+  Price: 0
   MoneyGain: 1
   HealthGain: 0
 --- !u!1 &5331173539562997007

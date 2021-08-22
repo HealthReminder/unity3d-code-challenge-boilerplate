@@ -83,8 +83,8 @@ public class Player : APlayerView
     public bool IsFacingDestination = false;
     private void Awake()
     {
+        Inventory = new Inventory(new Dictionary<ItemType, int>(), new Dictionary<ItemType, string>());
         currentDestination = transform.position;
-        Inventory = new Inventory();
     }
 
     private void Update()
@@ -109,7 +109,9 @@ public class Player : APlayerView
 
         if (Input.GetKeyDown(KeyCode.I))
         {
+            Debug.Log("Updating inventory with item count of: "+Inventory.itemToCount.Keys.Count);
             PersistentData.UpdatePlayer(Coins,Health,Inventory);
+            PersistentData.Debug();
             SceneManager.LoadScene(1);//Loads shop to test persistent data
         }
     }
@@ -126,11 +128,10 @@ public class Player : APlayerView
             else if (other.GetComponent<PickableItem>())
             {
                 PickableItem collectedItem = other.GetComponent<PickableItem>();
-                collectedItem.Collect(out int moneyGain, out int healthGain);
+                collectedItem.Collect(out int moneyGain, out int healthGain, out string prefabPath);
                 Coins += moneyGain;
                 Health += healthGain;
-                if (!collectedItem.isConsumable)
-                    Inventory.AddItem((int)collectedItem.item);
+                Inventory.AddItem(collectedItem, prefabPath);
                 Debug.Log($"Player collected an object and gained ${moneyGain}, and {healthGain} HP.");
             }
 

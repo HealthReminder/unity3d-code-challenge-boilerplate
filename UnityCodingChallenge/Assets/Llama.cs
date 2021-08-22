@@ -35,7 +35,7 @@ public abstract class ALlamaData : ALlamaProperties
     public int PoolId; //This is the ID sent to the pool when deactivation is in order
     public int Health;
     public int Age;
-    public Item Diet;
+    public ItemType Diet;
     public bool GotCaptured = false;
     public int DropQuantity;
 }
@@ -148,7 +148,7 @@ public class Llama : ALlamaView
         propertyBlock = new MaterialPropertyBlock();
         Health = Random.Range((int)healthMinMax.x, (int)healthMinMax.y + 1);
         Age = Random.Range((int)ageMinMax.x, (int)ageMinMax.y + 1);
-        Diet = (Item)Random.Range(0, 4);
+        Diet = (ItemType)Random.Range(0, 4);
         DropQuantity = Random.Range(3,6);
         ChangeColorRandom();
         ChangeScale();
