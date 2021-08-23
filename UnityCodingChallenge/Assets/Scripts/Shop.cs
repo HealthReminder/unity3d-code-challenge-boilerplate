@@ -29,16 +29,14 @@ public class Shop : InventoryView
     [ContextMenu("Display Shop Inventory")] public void DisplayShopInventory()
     {
         Dictionary<ItemType, int> itemToCount = new Dictionary<ItemType, int>();
-        Dictionary<ItemType, string> itemToPath = new Dictionary<ItemType, string>();
         for (int i = 0; i < options.Length; i++)
         {
             ItemType item = options[i].item;
             itemToCount.Add(item, options[i].quantity);
-            itemToPath.Add(item, ($"Items/{item}"));
         }
-        shopInventory = new Inventory(itemToCount, itemToPath);
+        shopInventory = new Inventory(itemToCount);
 
-        DisplayInventory(itemToCount, itemToPath);
+        DisplayInventory(itemToCount);
 
     }
 
@@ -55,7 +53,7 @@ public class Shop : InventoryView
     public void BuyItem(ItemType Item)
     {
         Debug.Log($"Player is trying to buy item {Item}");
-        PickableItem product = Instantiate(Resources.Load(shopInventory.itemToPath[Item]) as GameObject).GetComponent<PickableItem>();
+        PickableItem product = Instantiate(Resources.Load(PersistentData.GetItemResourcePath(Item)) as GameObject).GetComponent<PickableItem>();
         bool canBuy = true;
         if (playerCoins - product.Price < 0)
             canBuy = false;

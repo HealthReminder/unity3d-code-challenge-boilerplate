@@ -11,7 +11,6 @@ public enum ItemType : int
 public abstract class InventoryData 
 {
     public Dictionary<ItemType, int> itemToCount;
-    public Dictionary<ItemType, string> itemToPath;
 
 }
 public abstract class InventoryController : InventoryData
@@ -29,7 +28,6 @@ public abstract class InventoryController : InventoryData
         {
             //Added a new object
             itemToCount.Add(type, 1);
-            itemToPath.Add(type, path);
         }
 
     }
@@ -45,7 +43,6 @@ public abstract class InventoryController : InventoryData
             {
                 //There is not more of this item left
                 itemToCount.Remove(type);
-                itemToPath.Remove(type);
             }
         }
         else
@@ -56,10 +53,9 @@ public abstract class InventoryController : InventoryData
 }
 public class Inventory : InventoryController
 {
-    public Inventory(Dictionary<ItemType, int> countDic, Dictionary<ItemType, string> pathDic)
+    public Inventory(Dictionary<ItemType, int> countDic)
     {
         itemToCount = countDic;
-        itemToPath = pathDic;
     }
 
 

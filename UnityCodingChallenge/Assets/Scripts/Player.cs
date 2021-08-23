@@ -92,12 +92,10 @@ public class Player : APlayerView
     }
     public void UpdateLocalPlayer()
     {
-        PersistentData.UpdateLocalPlayer(out Coins, out Health, out Dictionary<ItemType, int> countList, out Dictionary<ItemType, string> pathList);
+        PersistentData.UpdateLocalPlayer(out Coins, out Health, out Dictionary<ItemType, int> countList);
         if (countList == null)
             countList = new Dictionary<ItemType, int>();
-        if (pathList == null)
-            pathList = new Dictionary<ItemType, string>();
-        Inventory = new Inventory(countList, pathList);
+        Inventory = new Inventory(countList);
 
 
     }

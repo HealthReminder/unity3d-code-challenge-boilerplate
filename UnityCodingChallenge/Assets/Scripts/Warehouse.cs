@@ -13,7 +13,7 @@ public class Warehouse : InventoryView
     {
         PersistentData.Debug();
         Inventory playerInventory = PersistentData.GetPlayerInventory();
-        DisplayInventory(playerInventory.itemToCount, playerInventory.itemToPath);
+        DisplayInventory(playerInventory.itemToCount);
     }
     public void LoadMainScene()
     {

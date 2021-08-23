@@ -13,18 +13,18 @@ public class InventoryView : MonoBehaviour
     {
         entries = new List<InventoryEntry>();
     }
-    public void DisplayInventory(Dictionary<ItemType, int> itemToCount, Dictionary<ItemType, string> itemToPath)
+    public void DisplayInventory(Dictionary<ItemType, int> itemToCount)
     {
-        if (itemToCount == null || itemToPath == null)
+        if (itemToCount == null)
             Debug.LogError("Tried to displayed a null reference inventory.");
 
         ClearDisplay();
-        string[] paths = itemToPath.Values.ToArray();
-        for (int i = 0; i < paths.Length; i++)
+        ItemType[] items = itemToCount.Keys.ToArray();
+        for (int i = 0; i < items.Length; i++)
         {
             //Debug.Log(paths[i]);
 
-            GameObject prefab = Instantiate(Resources.Load(paths[i]) as GameObject);
+            GameObject prefab = Instantiate(Resources.Load(PersistentData.GetItemResourcePath(items[i])) as GameObject);
             prefab.SetActive(false);
 
             PickableItem item = prefab.GetComponent<PickableItem>();

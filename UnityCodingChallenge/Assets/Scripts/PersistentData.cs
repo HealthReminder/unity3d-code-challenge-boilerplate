@@ -29,23 +29,21 @@ internal static class PlayerInfo
 
 public static class PersistentData
 {
-    public static string GetItemTypePath()
+    public static string GetItemResourcePath(ItemType item)
     {
-        return "";
+        return "Items/"+item.ToString();
     }
-    public static void UpdateLocalPlayer(out int coins, out int health, out Dictionary<ItemType, int> ItemToCount, out Dictionary<ItemType, string> ItemToPath)
+    public static void UpdateLocalPlayer(out int coins, out int health, out Dictionary<ItemType, int> ItemToCount)
     {
         coins = PlayerInfo.money;
         health = PlayerInfo.health;
         ItemToCount = PlayerInfo.itemToCount;
-        ItemToPath = PlayerInfo.itemToPath;
 
     }
     public static void UpdateItemBought(int coins, Inventory inventory)
     {
         PlayerInfo.money = coins;
         PlayerInfo.itemToCount = inventory.itemToCount;
-        PlayerInfo.itemToPath = inventory.itemToPath;
 
     }
     public static void UpdatePersistentPlayer(int coins, int health, Inventory inventory)
@@ -53,12 +51,11 @@ public static class PersistentData
         PlayerInfo.money = coins;
         PlayerInfo.health = health;
         PlayerInfo.itemToCount = inventory.itemToCount;
-        PlayerInfo.itemToPath = inventory.itemToPath;
 
     }
     public static Inventory GetPlayerInventory()
     {
-        return new Inventory(PlayerInfo.itemToCount, PlayerInfo.itemToPath);
+        return new Inventory(PlayerInfo.itemToCount);
     }
     public static int GetPlayerCoins()
     {
