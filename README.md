@@ -34,15 +34,34 @@
       The Scripts folder are grouped by dependencies.<br>
       The group folders are: <br>
   </h3>
-  <h4>
+  <h4><ul>
       DataPersistency - static class responsible for making data persist losing referes, like when scenes change.<br>
       Interactables - scripts regarding buildings in the game.<br>
       Inventory- generic inventory type and its GUI.<br>
       Items- pickable item class ^.<br>
       Llama- Llama behaviour and Llama pooling.<br>
       Player- Player logic and data.<br>
-
+</ul>
   </h4>
+  <br>
+  <br>
+  <h2>Dependency structure</h2>
+  <h5><i>Follow this to understand the flow of the game logic.</i></h5><br>
+   <h3>
+        MatchManager<br>
+        |-----------¬<br><ul>
+               Persistent Data<br><ul>
+                |----¬<br>
+                Inventory<br><ul>
+                    |--¬<br>
+                    Buildings<br>
+                    Player<br>
+                </ul>
+            </ul>
+        </ul>
+        |--¬<br>
+        Llamas<br>
+  </h3>
  <br>
  <br>
  <br>

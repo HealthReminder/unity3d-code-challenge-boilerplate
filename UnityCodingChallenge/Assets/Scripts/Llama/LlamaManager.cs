@@ -68,7 +68,6 @@ public class LlamaManager : PoolingController
     }
     public void SpawnLlamaRandom()
     {
-        Debug.Log("Here");
         int newId = PoolNext();
         Transform current = instances[newId].transform;
         Llama currentLlama = current.GetComponent<Llama>();
