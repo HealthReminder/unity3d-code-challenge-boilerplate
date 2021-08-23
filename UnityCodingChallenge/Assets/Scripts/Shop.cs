@@ -61,7 +61,7 @@ public class Shop : InventoryView
         {
             playerCoins -= product.Price;
             playerInventory.AddItem(product, ($"Items/{product.itemType}"));
-            PersistentData.UpdateItemBought(playerCoins, playerInventory);
+            PersistentData.SaveItemBought(playerCoins, playerInventory);
             coinsText.text = "$" + playerCoins.ToString();
 
         }

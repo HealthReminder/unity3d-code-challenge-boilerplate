@@ -92,12 +92,10 @@ public class Player : APlayerView
     }
     public void UpdateLocalPlayer()
     {
-        PersistentData.UpdateLocalPlayer(out Coins, out Health, out Dictionary<ItemType, int> countList);
+        PersistentData.GetPlayerInfo(out Coins, out Health, out Dictionary<ItemType, int> countList);
         if (countList == null)
             countList = new Dictionary<ItemType, int>();
         Inventory = new Inventory(countList);
-
-
     }
     private void Update()
     {
@@ -124,14 +122,14 @@ public class Player : APlayerView
         if (Input.GetKeyDown(KeyCode.I))
         {
             Debug.Log("Updating inventory with item count of: " + Inventory.itemToCount.Keys.Count);
-            PersistentData.UpdatePersistentPlayer(Coins, Health, Inventory);
+            PersistentData.SavePlayerInfo(Coins, Health, Inventory);
             PersistentData.Debug();
             SceneManager.LoadScene(1);//Loads shop to test persistent data
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
             Debug.Log("Updating inventory with item count of: " + Inventory.itemToCount.Keys.Count);
-            PersistentData.UpdatePersistentPlayer(Coins, Health, Inventory);
+            PersistentData.SavePlayerInfo(Coins, Health, Inventory);
             PersistentData.Debug();
             SceneManager.LoadScene(2);//Loads shop to test persistent data
         }
@@ -171,7 +169,7 @@ public class Player : APlayerView
                 interactionResult = false;
                 Debug.Log($"Player interacted with building with a {interactionResult} result.");
                 SetAnimationIdle(true);
-                PersistentData.UpdatePersistentPlayer(Coins, Health, Inventory);
+                PersistentData.SavePlayerInfo(Coins, Health, Inventory);
                 if (interactingWith.GetComponent<Building>())
                     interactingWith.GetComponent<Building>().Enter();
             }

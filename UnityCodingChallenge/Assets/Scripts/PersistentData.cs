@@ -9,7 +9,6 @@ internal static class PlayerInfo
     static internal int health;
 
     public static Dictionary<ItemType, int> itemToCount;
-    public static Dictionary<ItemType, string> itemToPath;
     static public void LogInfo()
     {
         string s = $"Player stored persistent data:\n";
@@ -31,26 +30,33 @@ public static class PersistentData
 {
     public static string GetItemResourcePath(ItemType item)
     {
-        return "Items/"+item.ToString();
+        //Utility Function
+        //Returns the path to a gameObject prefab by its ItemType
+        //Usually I have a Helper class that has these
+        return "Items/" +item.ToString();
     }
-    public static void UpdateLocalPlayer(out int coins, out int health, out Dictionary<ItemType, int> ItemToCount)
+    //Save to the "cloud"
+    public static void SavePlayerInfo(int coins, int health, Inventory inventory)
+    {
+        PlayerInfo.money = coins;
+        PlayerInfo.health = health;
+        if(inventory!= null)
+            PlayerInfo.itemToCount = inventory.itemToCount;
+
+    }
+    public static void SaveItemBought(int coins, Inventory inventory)
+    {
+        PlayerInfo.money = coins;
+        PlayerInfo.itemToCount = inventory.itemToCount;
+
+    }
+ 
+    //Retrieve from the "cloud"
+    public static void GetPlayerInfo(out int coins, out int health, out Dictionary<ItemType, int> ItemToCount)
     {
         coins = PlayerInfo.money;
         health = PlayerInfo.health;
         ItemToCount = PlayerInfo.itemToCount;
-
-    }
-    public static void UpdateItemBought(int coins, Inventory inventory)
-    {
-        PlayerInfo.money = coins;
-        PlayerInfo.itemToCount = inventory.itemToCount;
-
-    }
-    public static void UpdatePersistentPlayer(int coins, int health, Inventory inventory)
-    {
-        PlayerInfo.money = coins;
-        PlayerInfo.health = health;
-        PlayerInfo.itemToCount = inventory.itemToCount;
 
     }
     public static Inventory GetPlayerInventory()
