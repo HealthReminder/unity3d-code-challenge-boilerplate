@@ -29,6 +29,10 @@ internal static class PlayerInfo
 
 public static class PersistentData
 {
+    public static string GetItemTypePath()
+    {
+        return "";
+    }
     public static void UpdateLocalPlayer(out int coins, out int health, out Dictionary<ItemType, int> ItemToCount, out Dictionary<ItemType, string> ItemToPath)
     {
         coins = PlayerInfo.money;
